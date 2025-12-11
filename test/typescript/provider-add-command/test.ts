@@ -14,7 +14,7 @@ describe("provider add command", () => {
       driver = new TestDriver(__dirname, {
         CDKTF_DIST: "",
         DISABLE_VERSION_CHECK: "true",
-      }); // reset CDKTF_DIST set by run-against-dist script & disable version check as we have to use an older version of cdktf-cli
+      }); // reset CDKTF_DIST set by run-against-dist script & disable version check as we have to use an older version of tcons-cli
       await driver.setupTypescriptProject({
         init: { additionalOptions: "--cdktf-version 0.10.4" },
       });

@@ -27,7 +27,7 @@ You can now edit the `main.py` file if you want to modify any code.
 ```
 #!/usr/bin/env python
 from constructs import Construct
-from cdktf import App, TerraformStack
+from tcons import App, TerraformStack
 from imports.docker import Image, Container
 
 
@@ -59,7 +59,7 @@ cdktf synth
 
 The above command will create a folder called `cdktf.out` that contains all Terraform JSON configuration that was generated.
 
-Run cdktf-cli commands
+Run tcons-cli commands
 
 ```bash
 cdktf diff

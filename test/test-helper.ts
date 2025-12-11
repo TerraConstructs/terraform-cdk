@@ -3,7 +3,7 @@
 import { TemplateServer } from "./template-server";
 import { spawn, execSync } from "child_process";
 import * as execa from "execa";
-import { spawn as ptySpawn } from "@cdktf/node-pty-prebuilt-multiarch";
+import { spawn as ptySpawn } from "@homebridge/node-pty-prebuilt-multiarch";
 
 const os = require("os");
 const path = require("path");
@@ -402,7 +402,7 @@ export class TestDriver {
       path.resolve(
         __dirname,
         "..",
-        "packages/@cdktf/cli-core/templates/typescript",
+        "packages/@tcons/cli-core/templates/typescript",
       ),
     );
     try {

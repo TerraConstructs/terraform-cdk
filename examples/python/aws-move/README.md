@@ -30,7 +30,7 @@ You can now edit the `main.py` file if you want to modify any code.
 vim main.py
 #!/usr/bin/env python
 from constructs import Construct
-from cdktf import App, TerraformStack
+from tcons import App, TerraformStack
 from imports.aws import SnsTopic, AwsProvider
 from imports.terraform_aws_modules.vpc.aws import Vpc
 
@@ -62,7 +62,7 @@ cdktf synth
 
 The above command will create a folder called `cdktf.out` that contains all Terraform JSON configuration that was generated.
 
-Run cdktf-cli commands
+Run tcons-cli commands
 
 ```bash
 cdktf diff

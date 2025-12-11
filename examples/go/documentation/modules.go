@@ -7,16 +7,16 @@ package main
 import (
 	"github.com/aws/constructs-go/constructs/v10"
 	"github.com/aws/jsii-runtime-go"
-	"github.com/hashicorp/terraform-cdk-go/cdktf"
+	"github.com/terraconstructs/terraform-cdk-go/cdktf"
 
 	// DOCS_BLOCK_END:modules-local
-	aws "github.com/hashicorp/terraform-cdk/examples/go/documentation/generated/hashicorp/aws/provider"
+	aws "github.com/terraconstructs/terraform-cdk/examples/go/documentation/generated/hashicorp/aws/provider"
 	// DOCS_BLOCK_END:modules-create
-	"github.com/hashicorp/terraform-cdk/examples/go/documentation/generated/terraform-aws-modules/aws/vpc"
+	"github.com/terraconstructs/terraform-cdk/examples/go/documentation/generated/terraform-aws-modules/aws/vpc"
 	// DOCS_BLOCK_END:modules-install
 	// DOCS_BLOCK_START:modules-local
 	// This module can come from a registry or through a local / remote reference
-	"github.com/hashicorp/terraform-cdk/examples/go/documentation/generated/my_local_module"
+	"github.com/terraconstructs/terraform-cdk/examples/go/documentation/generated/my_local_module"
 	// DOCS_BLOCK_START:modules-install,modules-create
 )
 

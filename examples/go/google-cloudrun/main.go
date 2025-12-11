@@ -8,7 +8,7 @@ import (
 
 	"github.com/aws/constructs-go/constructs/v10"
 	"github.com/aws/jsii-runtime-go"
-	"github.com/hashicorp/terraform-cdk-go/cdktf"
+	"github.com/terraconstructs/terraform-cdk-go/cdktf"
 
 	// Google provider.
 	"github.com/hashicorp/cdktf-provider-google-go/google"

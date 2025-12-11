@@ -5,7 +5,7 @@
   "redirects": [
     {
       "source": "/",
-      "destination": "https://github.com/hashicorp/terraform-cdk",
+      "destination": "https://github.com/terraconstructs/terraform-cdk",
       "permanent": false
     },
     {
@@ -35,7 +35,7 @@
     },
     {
       "source": "/discuss",
-      "destination": "https://discuss.hashicorp.com/c/terraform-core/cdk-for-terraform/47",
+      "destination": "https://cdk.dev/",
       "permanent": false
     },
     {
@@ -45,12 +45,12 @@
     },
     {
       "source": "/feature",
-      "destination": "https://github.com/hashicorp/terraform-cdk/issues/new?assignees=&labels=enhancement%2Cnew&template=feature-request.yml&title=",
+      "destination": "https://github.com/terraconstructs/terraform-cdk/issues/new?assignees=&labels=enhancement%2Cnew&template=feature-request.yml&title=",
       "permanent": false
     },
     {
       "source": "/bug",
-      "destination": "https://github.com/hashicorp/terraform-cdk/issues/new?assignees=&labels=bug%2Cnew&template=bug-report.yml&title=",
+      "destination": "https://github.com/terraconstructs/terraform-cdk/issues/new?assignees=&labels=bug%2Cnew&template=bug-report.yml&title=",
       "permanent": false
     },
     {
@@ -195,7 +195,7 @@
     },
     {
       "source": "/convert-limitations",
-      "destination": "https://github.com/hashicorp/terraform-cdk/blob/main/packages/@cdktf/hcl2cdk/README.md#known-limitations",
+      "destination": "https://github.com/terraconstructs/terraform-cdk/blob/main/packages/@tcons/hcl2cdk/README.md#known-limitations",
       "permanent": false
     },
     {

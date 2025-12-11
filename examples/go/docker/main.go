@@ -20,13 +20,13 @@ Steps:
 package main
 
 import (
-	"github.com/hashicorp/terraform-cdk/examples/go/docker/generated/kreuzwerker/docker/container"
-	"github.com/hashicorp/terraform-cdk/examples/go/docker/generated/kreuzwerker/docker/image"
-	dockerprovider "github.com/hashicorp/terraform-cdk/examples/go/docker/generated/kreuzwerker/docker/provider"
+	"github.com/terraconstructs/terraform-cdk/examples/go/docker/generated/kreuzwerker/docker/container"
+	"github.com/terraconstructs/terraform-cdk/examples/go/docker/generated/kreuzwerker/docker/image"
+	dockerprovider "github.com/terraconstructs/terraform-cdk/examples/go/docker/generated/kreuzwerker/docker/provider"
 
 	"github.com/aws/constructs-go/constructs/v10"
 	"github.com/aws/jsii-runtime-go"
-	"github.com/hashicorp/terraform-cdk-go/cdktf"
+	"github.com/terraconstructs/terraform-cdk-go/cdktf"
 )
 
 func NewExampleCdktfGoDockerStack(scope constructs.Construct, id string) cdktf.TerraformStack {

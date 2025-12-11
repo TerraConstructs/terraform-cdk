@@ -21,7 +21,7 @@ You can now edit the `main.ts` file if you want to modify any code.
 ```typescript
 vim main.ts
 import { Construct } from 'constructs';
-import { App, TerraformStack, Token } from 'cdktf';
+import { App, TerraformStack, Token } from 'tcons';
 import { Eks } from './.gen/modules/terraform-aws-modules/eks/aws';
 import { Vpc } from './.gen/modules/terraform-aws-modules/vpc/aws';
 import { DynamodbTable } from './.gen/providers/aws/dynamodb-table';
@@ -96,7 +96,7 @@ cdktf synth
 
 The above command will create a folder called `cdktf.out` that contains all Terraform JSON configuration that was generated.
 
-Run cdktf-cli commands
+Run tcons-cli commands
 
 ```bash
 cdktf diff

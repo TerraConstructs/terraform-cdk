@@ -7,10 +7,10 @@ import (
 	"github.com/aws/constructs-go/constructs/v10"
 	"github.com/aws/jsii-runtime-go"
 
-	"github.com/hashicorp/terraform-cdk-go/cdktf"
-	"github.com/hashicorp/terraform-cdk/examples/go/documentation/generated/hashicorp/kubernetes/deployment"
-	"github.com/hashicorp/terraform-cdk/examples/go/documentation/generated/hashicorp/kubernetes/namespace"
-	"github.com/hashicorp/terraform-cdk/examples/go/documentation/generated/hashicorp/kubernetes/provider"
+	"github.com/terraconstructs/terraform-cdk-go/cdktf"
+	"github.com/terraconstructs/terraform-cdk/examples/go/documentation/generated/hashicorp/kubernetes/deployment"
+	"github.com/terraconstructs/terraform-cdk/examples/go/documentation/generated/hashicorp/kubernetes/namespace"
+	"github.com/terraconstructs/terraform-cdk/examples/go/documentation/generated/hashicorp/kubernetes/provider"
 )
 
 func NewResourcesReferencesStack(scope constructs.Construct, name string) cdktf.TerraformStack {

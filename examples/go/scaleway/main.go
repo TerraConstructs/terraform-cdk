@@ -11,7 +11,7 @@ import (
 	"cdk.tf/go/stack/generated/scaleway/scaleway/provider"
 	"github.com/aws/constructs-go/constructs/v10"
 	"github.com/aws/jsii-runtime-go"
-	"github.com/hashicorp/terraform-cdk-go/cdktf"
+	"github.com/terraconstructs/terraform-cdk-go/cdktf"
 )
 
 func NewMyStack(scope constructs.Construct, id string) cdktf.TerraformStack {

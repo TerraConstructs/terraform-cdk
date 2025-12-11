@@ -13,7 +13,7 @@ on:
 
 jobs:
   build-docker-image:
-    if: github.repository == 'hashicorp/terraform-cdk'
+    if: github.repository == 'terraconstructs/terraform-cdk'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
@@ -50,7 +50,7 @@ jobs:
         with:
           pull: true
           push: true
-          tags: hashicorp/jsii-terraform:latest,hashicorp/jsii-terraform:${{ steps.cdktf-version.outputs.cdktf }},hashicorp/jsii-terraform:${{ steps.cdktf-version.outputs.cdktf }}-${{ steps.git-sha.outputs.git-sha }}
+          tags: terraconstructs/jsii-terraform:latest,terraconstructs/jsii-terraform:${{ steps.cdktf-version.outputs.cdktf }},terraconstructs/jsii-terraform:${{ steps.cdktf-version.outputs.cdktf }}-${{ steps.git-sha.outputs.git-sha }}
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
           build-args: |

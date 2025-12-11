@@ -1,6 +1,6 @@
 # google-cloudrun
 
-A port of the TypeScript example at: https://github.com/hashicorp/terraform-cdk/tree/main/examples/typescript/google-cloudrun
+A port of the TypeScript example at: https://github.com/terraconstructs/terraform-cdk/tree/main/examples/typescript/google-cloudrun
 
 This resembles the example for the Google Cloud at [Hashicorp Learn](https://learn.hashicorp.com/terraform/gcp/build)
 

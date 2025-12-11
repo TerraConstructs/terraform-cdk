@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "description": "This directory contains integration tests for the cdktf project.",
   "scripts": {
-    "edge:install": "rm -rf ./edge-provider-bindings && cp -R ../packages/@cdktf/provider-generator/edge-provider-bindings/ ./edge-provider-bindings",
+    "edge:install": "rm -rf ./edge-provider-bindings && cp -R ../packages/@tcons/provider-generator/edge-provider-bindings/ ./edge-provider-bindings",
     "edge:translateTests": "node ./translate-edge-tests.js",
     "preedge:update": "npm run edge:install",
     "edge:update": "./run-against-dist ./update-edge.sh",
@@ -13,7 +13,7 @@
   },
   "license": "MPL-2.0",
   "devDependencies": {
-    "@cdktf/node-pty-prebuilt-multiarch": "0.10.1-pre.11",
+    "@homebridge/node-pty-prebuilt-multiarch": "0.13.1",
     "@types/express": "^4.17.21",
     "@types/fs-extra": "^8.1.5",
     "@types/jest": "^29.5.12",

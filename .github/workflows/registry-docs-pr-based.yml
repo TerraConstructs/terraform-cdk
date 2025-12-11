@@ -105,7 +105,7 @@ jobs:
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     container:
-      image: docker.mirror.hashicorp.services/hashicorp/jsii-terraform
+      image: terraconstructs/jsii-terraform
     env:
       CHECKPOINT_DISABLE: "1"
     timeout-minutes: 120
@@ -145,7 +145,7 @@ jobs:
       matrix:
         files: ${{fromJSON(needs.cdktfDocsMatrix.outputs.matrix)}}
     container:
-      image: docker.mirror.hashicorp.services/hashicorp/jsii-terraform
+      image: terraconstructs/jsii-terraform
     env:
       CHECKPOINT_DISABLE: "1"
     timeout-minutes: 360
@@ -229,7 +229,7 @@ jobs:
 
           gh pr create \
             --title="$TITLE" \
-            --body "This PR was automatically created by the [cdktf-docs-conversion workflow](https://github.com/hashicorp/terraform-cdk/blob/main/.github/workflows/cdktf-provider-docs-rollout.yml)." \
+            --body "This PR was automatically created by the [cdktf-docs-conversion workflow](https://github.com/terraconstructs/terraform-cdk/blob/main/.github/workflows/cdktf-provider-docs-rollout.yml)." \
             --base main \
             --repo ${{ inputs.repository }} \
             -f

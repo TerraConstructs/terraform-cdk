@@ -3,7 +3,7 @@
 
 # DOCS_BLOCK_START:assets
 from constructs import Construct
-from cdktf import TerraformAsset, TerraformStack, AssetType
+from tcons import TerraformAsset, TerraformStack, AssetType
 from imports.aws.provider import AwsProvider
 from imports.aws.s3_bucket import S3Bucket
 from imports.aws.s3_bucket_object import S3BucketObject
@@ -33,7 +33,7 @@ class MyAssetStack(TerraformStack):
 
 '''
 DOCS_BLOCK_START:assets
-app = cdktf.App()
+app = tcons.App()
 MyAssetStack(app, "demo")
 app.synth()
 DOCS_BLOCK_END:assets

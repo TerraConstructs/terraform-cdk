@@ -245,12 +245,12 @@ business domain was inspired by the style of the
 If you encounter any issues with the CDK for Terraform don't hesitate to get in
 touch with us:
 
-- Ask a question on the HashiCorp [Discuss](https://discuss.hashicorp.com/)
+- Ask a question on the HashiCorp [Discuss](https://cdk.dev/)
   using the
-  [terraform-cdk](https://discuss.hashicorp.com/c/terraform-core/cdk-for-terraform/)
-  category.
+  `#terraform-cdk`
+  channel.
 - Report a
-  [bug](https://github.com/hashicorp/terraform-cdk/issues/new?assignees=&labels=bug&template=bug-report.md&title=)
+  [bug](https://github.com/terraconstructs/terraform-cdk/issues/new?assignees=&labels=bug&template=bug-report.md&title=)
   or request a new
-  [feature](https://github.com/hashicorp/terraform-cdk/issues/new?assignees=&labels=enhancement&template=feature-request.md&title=).
-- Browse all [open issues](https://github.com/hashicorp/terraform-cdk/issues).
+  [feature](https://github.com/terraconstructs/terraform-cdk/issues/new?assignees=&labels=enhancement&template=feature-request.md&title=).
+- Browse all [open issues](https://github.com/terraconstructs/terraform-cdk/issues).

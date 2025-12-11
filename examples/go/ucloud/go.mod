@@ -1,11 +1,11 @@
-module github.com/hashicorp/terraform-cdk/examples/go/ucloud
+module github.com/terraconstructs/terraform-cdk/examples/go/ucloud
 
 go 1.18
 
 require (
 	github.com/aws/constructs-go/constructs/v10 v10.3.0
 	github.com/aws/jsii-runtime-go v1.102.0
-	github.com/hashicorp/terraform-cdk-go/cdktf v0.0.0
+	github.com/terraconstructs/terraform-cdk-go/cdktf v0.0.0
 )
 
 require (
@@ -22,4 +22,4 @@ require (
 )
 
 // only required when running example against terraform-cdk repo locally
-replace github.com/hashicorp/terraform-cdk-go/cdktf => ../../../packages/cdktf/dist/go/cdktf
+replace github.com/terraconstructs/terraform-cdk-go/cdktf => ../../../packages/tcons/dist/go/cdktf

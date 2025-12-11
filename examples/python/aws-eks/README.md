@@ -5,7 +5,7 @@
 Install cdktf
 
 ```
-~$ npm install --global cdktf-cli
+~$ npm install --global tcons-cli
 ```
 
 Verify the installation
@@ -51,7 +51,7 @@ Compile and generate Terraform configuration
 
 The above command will create a folder called `cdktf.out` that contains all Terraform JSON configuration that was generated.
 
-Run cdktf-cli commands
+Run tcons-cli commands
 
 ```bash
 cdktf diff

@@ -9,7 +9,7 @@ subprojects {
         mavenCentral()
         maven {
             name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/hashicorp/terraform-cdk")
+            url = uri("https://maven.pkg.github.com/terraconstructs/terraform-cdk")
             credentials {
                 if (System.getenv("CI")?.toBoolean()) {
                     password = System.getenv("GITHUB_TOKEN")

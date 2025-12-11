@@ -7,9 +7,9 @@ package main
 import (
 	"github.com/aws/constructs-go/constructs/v10"
 	"github.com/aws/jsii-runtime-go"
-	"github.com/hashicorp/terraform-cdk-go/cdktf"
-	"github.com/hashicorp/terraform-cdk/examples/go/documentation/generated/terraform-aws-modules/aws/eks"
-	"github.com/hashicorp/terraform-cdk/examples/go/documentation/generated/terraform-aws-modules/aws/vpc"
+	"github.com/terraconstructs/terraform-cdk-go/cdktf"
+	"github.com/terraconstructs/terraform-cdk/examples/go/documentation/generated/terraform-aws-modules/aws/eks"
+	"github.com/terraconstructs/terraform-cdk/examples/go/documentation/generated/terraform-aws-modules/aws/vpc"
 )
 
 func NewTokensStack(scope constructs.Construct, name string, vpcName string) cdktf.TerraformStack {

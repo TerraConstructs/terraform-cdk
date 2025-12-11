@@ -9,14 +9,14 @@ import (
 
 	"github.com/aws/constructs-go/constructs/v10"
 	"github.com/aws/jsii-runtime-go"
-	"github.com/hashicorp/terraform-cdk-go/cdktf"
-	"github.com/hashicorp/terraform-cdk/examples/go/documentation/generated/hashicorp/aws/dataawsregion"
-	"github.com/hashicorp/terraform-cdk/examples/go/documentation/generated/hashicorp/aws/dynamodbtable"
-	aws "github.com/hashicorp/terraform-cdk/examples/go/documentation/generated/hashicorp/aws/provider"
+	"github.com/terraconstructs/terraform-cdk-go/cdktf"
+	"github.com/terraconstructs/terraform-cdk/examples/go/documentation/generated/hashicorp/aws/dataawsregion"
+	"github.com/terraconstructs/terraform-cdk/examples/go/documentation/generated/hashicorp/aws/dynamodbtable"
+	aws "github.com/terraconstructs/terraform-cdk/examples/go/documentation/generated/hashicorp/aws/provider"
 
 	// DOCS_BLOCK_END:resources-define
-	"github.com/hashicorp/terraform-cdk/examples/go/documentation/generated/hashicorp/aws/securitygroup"
-	"github.com/hashicorp/terraform-cdk/examples/go/documentation/generated/hashicorp/aws/snstopic"
+	"github.com/terraconstructs/terraform-cdk/examples/go/documentation/generated/hashicorp/aws/securitygroup"
+	"github.com/terraconstructs/terraform-cdk/examples/go/documentation/generated/hashicorp/aws/snstopic"
 	// DOCS_BLOCK_START:resources-define
 )
 

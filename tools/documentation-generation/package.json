@@ -6,7 +6,7 @@
         "docs": "node ./generate-documentation.js ../../"
     },
     "dependencies": {
-        "cdktf": "file:../../packages/cdktf",
+        "tcons": "file:../../packages/tcons",
         "constructs": "10.3.0"
     },
     "devDependencies": {

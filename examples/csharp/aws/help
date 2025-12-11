@@ -17,6 +17,6 @@
     cdktf deploy          Deploy the given stack
 
   Destroy:
-    cdktf destroy         Destroy the given stack
+    tcons destroy         Destroy the given stack
 
 ========================================================================================================

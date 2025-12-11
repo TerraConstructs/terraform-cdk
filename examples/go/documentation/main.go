@@ -4,7 +4,7 @@
 package main
 
 import (
-	"github.com/hashicorp/terraform-cdk-go/cdktf"
+	"github.com/terraconstructs/terraform-cdk-go/cdktf"
 )
 
 func main() {

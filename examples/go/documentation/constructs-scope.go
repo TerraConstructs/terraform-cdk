@@ -7,9 +7,9 @@ package main
 import (
 	"github.com/aws/constructs-go/constructs/v10"
 	"github.com/aws/jsii-runtime-go"
-	"github.com/hashicorp/terraform-cdk-go/cdktf"
-	aws "github.com/hashicorp/terraform-cdk/examples/go/documentation/generated/hashicorp/aws/provider"
-	s3bucket "github.com/hashicorp/terraform-cdk/examples/go/documentation/generated/hashicorp/aws/s3bucket"
+	"github.com/terraconstructs/terraform-cdk-go/cdktf"
+	aws "github.com/terraconstructs/terraform-cdk/examples/go/documentation/generated/hashicorp/aws/provider"
+	s3bucket "github.com/terraconstructs/terraform-cdk/examples/go/documentation/generated/hashicorp/aws/s3bucket"
 )
 
 type PublicS3Bucket struct {

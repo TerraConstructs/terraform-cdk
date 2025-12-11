@@ -7,9 +7,9 @@ package main
 import (
 	"github.com/aws/constructs-go/constructs/v10"
 	"github.com/aws/jsii-runtime-go"
-	"github.com/hashicorp/terraform-cdk-go/cdktf"
-	"github.com/hashicorp/terraform-cdk/examples/go/documentation/generated/hashicorp/random/pet"
-	random "github.com/hashicorp/terraform-cdk/examples/go/documentation/generated/hashicorp/random/provider"
+	"github.com/terraconstructs/terraform-cdk-go/cdktf"
+	"github.com/terraconstructs/terraform-cdk/examples/go/documentation/generated/hashicorp/random/pet"
+	random "github.com/terraconstructs/terraform-cdk/examples/go/documentation/generated/hashicorp/random/provider"
 )
 
 func NewHclInteropStack(scope constructs.Construct, name string) cdktf.TerraformStack {

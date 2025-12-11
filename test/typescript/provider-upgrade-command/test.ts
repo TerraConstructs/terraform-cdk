@@ -14,7 +14,7 @@ describe("provider upgrade command", () => {
       CDKTF_DIST: "",
       DISABLE_VERSION_CHECK: "true",
       CI: "1",
-    }); // reset CDKTF_DIST set by run-against-dist script & disable version check as we have to use an older version of cdktf-cli
+    }); // reset CDKTF_DIST set by run-against-dist script & disable version check as we have to use an older version of tcons-cli
     await driver.setupTypescriptProject({
       init: { additionalOptions: "--cdktf-version 0.10.4" },
     });
@@ -29,7 +29,7 @@ describe("provider upgrade command", () => {
       ]);
     });
 
-    it("can update withing the same cdktf version to a specific version", async () => {
+    it("can update withing the same tcons version to a specific version", async () => {
       expect(driver.packageJson()).toEqual(
         packageJsonWithDependency("@cdktf/provider-random", "0.2.55"),
       );

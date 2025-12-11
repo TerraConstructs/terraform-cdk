@@ -8,7 +8,7 @@ import {
   Testing,
   Fn,
   LocalBackend,
-} from "cdktf";
+} from "tcons";
 import { provider, snsTopic } from "./.gen/providers/aws";
 import { Instance } from "./.gen/providers/aws/instance";
 

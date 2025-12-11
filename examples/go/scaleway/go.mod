@@ -6,7 +6,7 @@ require github.com/aws/constructs-go/constructs/v10 v10.3.0
 
 require (
 	github.com/aws/jsii-runtime-go v1.102.0
-	github.com/hashicorp/terraform-cdk-go/cdktf v0.0.0
+	github.com/terraconstructs/terraform-cdk-go/cdktf v0.0.0
 )
 
 require (
@@ -22,4 +22,4 @@ require (
 	golang.org/x/tools v0.23.0 // indirect
 )
 
-replace github.com/hashicorp/terraform-cdk-go/cdktf => ../../../packages/cdktf/dist/go/cdktf
+replace github.com/terraconstructs/terraform-cdk-go/cdktf => ../../../packages/tcons/dist/go/cdktf

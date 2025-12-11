@@ -1,14 +1,14 @@
 # Contributing
 
-This repository contains CDK for Terraform (CDKTF)– this includes the CDKTF CLI, CDKTF package, CDKTF Convert, and Provider Generator. Prebuilt providers are housed in separate repositories under the [HashiCorp CDKTF organization](https://github.com/cdktf)
+This repository contains CDK for Terraform (CDKTF)– this includes the TCONS CLI, TCONS package, TCONS Convert, and Provider Generator. Prebuilt providers are housed in separate repositories under the [TerraConstructs Providers organization](https://github.com/terraconstructs-providers)
 
 This document aims to provide guidance on recommended contribution practices as well as an introduction to common workflows when contributing.
 
-Note: All communication on GitHub, the community forum, and other HashiCorp-provided communication channels is subject to the [HashiCorp community guidelines](https://www.hashicorp.com/community-guidelines).
+Note: All communication on GitHub, the community forum, and other CDK releated communication channels is subject to the [CDK community Code of Conduct](https://cdk.dev/codeofconduct).
 
 ## Questions
 
-For general problems you encounter that may not require a core maintainer to answer, post your question in our [community forum]("https://discuss.hashicorp.com/c/terraform-core/cdk-for-terraform/"). Otherwise if you believe the problem stems from a bug, please feel free to create a new issue describing the problem.
+For general problems you encounter that may not require a core maintainer to answer, post your question in our [community forum](https://cdk.dev/). Otherwise if you believe the problem stems from a bug, please feel free to create a new issue describing the problem.
 
 ## Issues
 
@@ -52,7 +52,7 @@ Before you submit your Pull Request (PR) consider the following guidelines:
 ### Pull Request Lifecycle
 
 1. You are welcome to submit an initial draft pull request for commentary before it is fully completed. It's also helpful to include comments on items you'd like feedback on or feel needs further discussion. Once you believe your pull request is ready to be merged you can set your pull request to open.
-2. When time permits and all checks have passed, Terraform CDK team members will review your PR. From here the pull request will either be merged, or additional changed may be requested in comments. We may also have questions that we need answered about the code, due to something that needs greater clarification or just because we want to better understand your thought process Please note that the responsibility for passing tests belongs to the author of the PR. If you're having significant trouble with getting tests to pass, please write `@hashicorp/cdktf` in a comment on the PR to request assistance.
+2. When time permits and all checks have passed, Terraform CDK team members will review your PR. From here the pull request will either be merged, or additional changed may be requested in comments. We may also have questions that we need answered about the code, due to something that needs greater clarification or just because we want to better understand your thought process Please note that the responsibility for passing tests belongs to the author of the PR. If you're having significant trouble with getting tests to pass, please write `@terraconstructs/cdktf` in a comment on the PR to request assistance.
 3. When we request changes, you have two options. You can either make those changes or, if you disagree with the suggested changes, a conversation can be had about our respective reasonings where we can then agree on a path forward. In many instances this may be a multi-step process. Pull requests are a great venue for the team and our community to collaborate, and we welcome conversations about how to improve things.
 4. Once all outstanding comments and checklist items have been addressed, your contribution will be merged!
 
@@ -95,10 +95,10 @@ To build and install `terraform-cdk` locally you need to install:
 - mvn
 - pipenv
 
-Alternatively you can work on the CDK from within a docker container with the image `docker.mirror.hashicorp.services/hashicorp/jsii-terraform`, e.g.:
+Alternatively you can work on the CDK from within a docker container with the image `terraconstructs/jsii-terraform`, e.g.:
 
 ```shell
-$ docker run -it --rm -w=/home -v (pwd):/home docker.mirror.hashicorp.services/hashicorp/jsii-terraform
+$ docker run -it --rm -w=/home -v (pwd):/home terraconstructs/jsii-terraform
 ```
 
 or through [Visual Studio Code Remote - Containers](https://code.visualstudio.com/docs/remote/containers).
@@ -108,7 +108,7 @@ or through [Visual Studio Code Remote - Containers](https://code.visualstudio.co
 Clone the repository:
 
 ```shell
-$ git clone https://github.com/hashicorp/terraform-cdk.git
+$ git clone https://github.com/terraconstructs/terraform-cdk.git
 ```
 
 To compile the `terraform-cdk` binary for your local machine:
@@ -147,17 +147,17 @@ $ yarn watch
 
 This will watch for changes in all packages.
 
-**Note (for cdktf-cli only):** We're using [esbuild](https://esbuild.github.io/) for transpilation and bundling of the Typescript code. However, `esbuild` only transpiles, but doesn't do any type checking. That's why we've added an extra step as a pre-commit hook which transpiles the code with `tsc` to ensure commits don't have type errors.
+**Note (for tcons-cli only):** We're using [esbuild](https://esbuild.github.io/) for transpilation and bundling of the Typescript code. However, `esbuild` only transpiles, but doesn't do any type checking. That's why we've added an extra step as a pre-commit hook which transpiles the code with `tsc` to ensure commits don't have type errors.
 
 ### CLI changes
 
 If your changes target only CLI and packages used by the CLI, running `yarn watch` will be sufficient. Although it's technically a bit different from what we ship you should be able to use a direct path to our binary entry point to execute commands. You can put this in a shell alias like this:
 
 ```shell
-alias cdktfl='/path/to/terraform-cdk/packages/cdktf-cli/bundle/bin/cdktf' # For running cdktf locally
-alias cdktfld='node --inspect-brk /path/to/terraform-cdk/packages/cdktf-cli/bundle/bin/cdktf.js' # For running cdktf locally with debugging
+alias tconsl='/path/to/terraform-cdk/packages/tcons-cli/bundle/bin/tcons' # For running tconstcons locally
+alias tconsld='node --inspect-brk /path/to/terraform-cdk/packages/tcons-cli/bundle/bin/tcons.js' # For running tcons locally with debugging
 
-$ cdktfl get
+$ tconsl get
 ```
 
 ### Library changes
@@ -236,15 +236,15 @@ If you'd want this permanently, you can add this line to your profile settings (
 
 ### Create link
 
-Let's link `cdktf` and `cdktf-cli`, run the following the repository root folder:
+Let's link `tcons` and `tcons-cli`, run the following the repository root folder:
 
 ```shell
 $ yarn link-packages
-$ cdktf --version
+$ tcons --version
 0.0.0
 ```
 
-When the version equals `0.0.0` everything worked as expected. If you see another version, try uninstalling `cdktf-cli` with `npm` or `yarn`.
+When the version equals `0.0.0` everything worked as expected. If you see another version, try uninstalling `tcons-cli` with `npm` or `yarn`.
 
 ### Build & Package
 
@@ -263,20 +263,20 @@ $ cdktf init --template typescript --local
 
 Please note, that this will reference the built packages in `$CDKTF_DIST`. This means, it will reflect code changes only after repeating `yarn build && yarn package` and running an explicit `yarn install` again.
 
-Reference the previously [linked](#create-link) `cdktf` package in our newly created project:
+Reference the previously [linked](#create-link) `tcons` package in our newly created project:
 
 ```shell
 $ cd ~/my-local-cdktf-example
-$ yarn link "cdktf"
+$ yarn link "tcons"
 ```
 
-From here on both, the `cli` and the `cdktf` packages are linked and changes will be reflected immediatlely.
+From here on both, the `cli` and the `tcons` packages are linked and changes will be reflected immediatlely.
 
 ### Known errors
 
 #### Python
 
-If you get this error message when trying to use a local build of `cdktf`:
+If you get this error message when trying to use a local build of `tcons`:
 
 > ERROR: THESE PACKAGES DO NOT MATCH THE HASHES FROM THE REQUIREMENTS FILE. If you have updated the package versions, please update the hashes. Otherwise, examine the package contents carefully; someone may have tampered with them.
 
@@ -286,7 +286,7 @@ Run:
 ./tools/align-version.sh -dev.111212112 && yarn build && yarn package
 ```
 
-This builds a package with a development version which skips the tamper check in Python. (We once accidentally released `cdktf 0.0.0` which is the reason why Python knows some valid hashes for that `0.0.0` version and will fail as they won't match.)
+This builds a package with a development version which skips the tamper check in Python.
 
 ## Rebasing contributions against main
 
@@ -314,13 +314,13 @@ created through `cdktf init`.
 The pattern is simple:
 
 1. Define a new const under
-   [cdktf/lib/features.ts](https://github.com/hashicorp/terraform-cdk/blob/main/packages/cdktf/lib/features.ts)
+   [tcons/lib/features.ts](https://github.com/terraconstructs/terraform-cdk/blob/main/packages/tcons/lib/features.ts)
    with the name of the context key that **enables** this new feature (for
    example, `EXCLUDE_STACK_ID_FROM_LOGICAL_IDS`).
 2. Use `node.tryGetContext(ENABLE_XXX)` to check if this feature is enabled
    in your code. If it is not defined, revert to the legacy behavior.
 3. Add your feature flag to the `FUTURE_FLAGS` map in
-   [cdktf/lib/features.ts](https://github.com/hashicorp/terraform-cdk/blob/main/packages/cdktf/lib/features.ts).
+   [tcons/lib/features.ts](https://github.com/terraconstructs/terraform-cdk/blob/main/packages/tcons/lib/features.ts).
    This map is inserted to generated `cdktf.json` files for new projects created
    through `cdktf init`.
 4. In your PR title (which goes into CHANGELOG), add a `(under feature flag)` suffix. e.g:
@@ -358,7 +358,7 @@ To enable debug output of JSII, set `JSII_DEBUG` to e.g. `1`. There's also `JSII
 
 Most of our tests are automated but there are some workflows we need to manually test for now.
 
-- Test `cdktf` against Terraform Enterprise
+- Test `tcons` against Terraform Enterprise
 
 #### Terraform CDK
 
@@ -390,7 +390,7 @@ sentry-cli login
 # List all releases (optional)
 sentry-cli releases list --org hashicorp
 # Delete the release, Note: there will be no confirmation for deleting the release!
-sentry-cli releases delete --org hashicorp <release> # e.g. cdktf-cli-0.14.0
+sentry-cli releases delete --org hashicorp <release> # e.g. tcons-cli-0.14.0
 ```
 
 ### Repositories to update
@@ -408,7 +408,7 @@ Just run the following script before bumping the version, it'll create a ready t
 ./tools/create-changelog.sh
 ```
 
-Other than that, you can get a list of commits since the last release you can e.g. visit a link like this: `https://github.com/hashicorp/terraform-cdk/compare/v0.4.1...main`. You'll find the PR numbers there as links.
+Other than that, you can get a list of commits since the last release you can e.g. visit a link like this: `https://github.com/terraconstructs/terraform-cdk/compare/v0.4.1...main`. You'll find the PR numbers there as links.
 
 ## Backporting releases
 
@@ -462,13 +462,13 @@ You can have a look at this branch and its commits / PRs for an example: [backpo
 
 ## Issue Grooming
 
-To ensure we can properly prioritize new features and bugs we aim to keep our issues prioritized and sorted. We label new issues both in size (`size/small`, ..., `size/x-large`) and priority (`priority/awaiting-more-evidence`, ..., `priority/critical-urgent`) and we add labels for the affected part of the code base / effect (`cdktf-cli`, ..., `ux/cli`).
+To ensure we can properly prioritize new features and bugs we aim to keep our issues prioritized and sorted. We label new issues both in size (`size/small`, ..., `size/x-large`) and priority (`priority/awaiting-more-evidence`, ..., `priority/critical-urgent`) and we add labels for the affected part of the code base / effect (`tcons-cli`, ..., `ux/cli`).
 
 Here are GitHub links that help this process:
 
-- [All new issues](https://github.com/hashicorp/terraform-cdk/issues?q=is%3Aopen+is%3Aissue+label%3Anew)
-- [All unprioritized issues (that are not waiting for an answer)](https://github.com/hashicorp/terraform-cdk/issues?q=is%3Aopen+is%3Aissue+-label%3Apriority%2Fawaiting-more-evidence+-label%3Apriority%2Fbacklog+-label%3Apriority%2Fcritical-urgent+-label%3Apriority%2Fimportant-longterm+-label%3Apriority%2Fimportant-soon+-label%3Aneeds-priority+-label%3Awaiting-on-answer+-label%3Anew)
-- [Issues to follow up on](https://github.com/hashicorp/terraform-cdk/issues?q=is%3Aopen+is%3Aissue+label%3Awaiting-on-answer+updated%3A%3C2021-11-01) (Query needs manual adjustment of the date)
+- [All new issues](https://github.com/terraconstructs/terraform-cdk/issues?q=is%3Aopen+is%3Aissue+label%3Anew)
+- [All unprioritized issues (that are not waiting for an answer)](https://github.com/terraconstructs/terraform-cdk/issues?q=is%3Aopen+is%3Aissue+-label%3Apriority%2Fawaiting-more-evidence+-label%3Apriority%2Fbacklog+-label%3Apriority%2Fcritical-urgent+-label%3Apriority%2Fimportant-longterm+-label%3Apriority%2Fimportant-soon+-label%3Aneeds-priority+-label%3Awaiting-on-answer+-label%3Anew)
+- [Issues to follow up on](https://github.com/terraconstructs/terraform-cdk/issues?q=is%3Aopen+is%3Aissue+label%3Awaiting-on-answer+updated%3A%3C2021-11-01) (Query needs manual adjustment of the date)
 
 ## Reproducing Bugs on Windows
 

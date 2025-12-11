@@ -1,3 +1,7 @@
+# Changelog
+
+All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
 ## 0.21.0
 
 **Breaking Changes**
@@ -605,7 +609,7 @@ Before:
 
 ```python
 from constructs import Construct
-from cdktf import App, TerraformStack
+from tcons import App, TerraformStack
 from imports.aws import provider, sns_topic, lambda_function, iam_role
 
 class MyStack(TerraformStack):
@@ -629,7 +633,7 @@ After:
 
 ```python
 from constructs import Construct
-from cdktf import App, TerraformStack
+from tcons import App, TerraformStack
 # This syntax was supported before as well
 from imports.aws.provider import AwsProvider
 from imports.aws.sns_topic import SnsTopic

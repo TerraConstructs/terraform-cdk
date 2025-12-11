@@ -3,7 +3,7 @@
 
 # for CDK
 from constructs import Construct
-from cdktf import App, TerraformStack, TerraformOutput, Token
+from tcons import App, TerraformStack, TerraformOutput, Token
 
 # for terraform provider
 from imports.aws.provider import AwsProvider

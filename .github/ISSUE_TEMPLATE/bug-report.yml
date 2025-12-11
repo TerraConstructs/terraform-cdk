@@ -52,13 +52,13 @@ body:
     attributes:
       label: Versions
       description: |
-        Please run `cdktf debug` on the command line and paste the output in here. Alternatively, manually list your cdktf and OS/language versions.
+        Please run `tcons debug` on the command line and paste the output in here. Alternatively, manually list your tcons and OS/language versions.
         If you are not running the latest versions, please upgrade because your issue may have already been fixed.
       placeholder: |
         language: typescript
-        cdktf-cli: 0.16.1
+        tcons-cli: 0.16.1
         node: v18.16.0
-        cdktf: 0.16.1
+        tcons: 0.16.1
         constructs: 10.2.14
         jsii: 1.82.0
         terraform: 1.4.6

@@ -1,6 +1,6 @@
 ========================================================================================================
 
-  Your cdktf csharp project is ready!
+  Your tcons csharp project is ready!
 
   cat help                Prints this message
 
@@ -17,6 +17,6 @@
     cdktf deploy          Deploy the given stack
 
   Destroy:
-    cdktf destroy         Destroy the given stack
+    tcons destroy         Destroy the given stack
 
 ========================================================================================================

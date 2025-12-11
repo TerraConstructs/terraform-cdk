@@ -21,14 +21,14 @@ jobs:
       matrix:
         package:
           [
-            cdktf,
-            cdktf-cli,
-            "@cdktf/hcl2cdk",
-            "@cdktf/hcl2json",
-            "@cdktf/provider-schema",
-            "@cdktf/provider-generator",
-            "@cdktf/commons",
-            "@cdktf/cli-core",
+            tcons,
+            tcons-cli,
+            "@tcons/hcl2cdk",
+            "@tcons/hcl2json",
+            "@tcons/provider-schema",
+            "@tcons/provider-generator",
+            "@tcons/commons",
+            "@tcons/cli-core",
           ]
         terraform_version: ["1.6.5", "1.5.5"]
     with:
@@ -47,7 +47,7 @@ jobs:
         terraform_version: ["1.6.5"]
     with:
       concurrency_group_prefix: pr-cdktf-cli-core
-      package: "@cdktf/cli-core"
+      package: "@tcons/cli-core"
       terraform_version: ${{ matrix.terraform_version }}
     secrets: inherit
 
@@ -61,7 +61,7 @@ jobs:
         terraform_version: ["1.6.5"]
     with:
       concurrency_group_prefix: pr-cdktf-commons
-      package: "@cdktf/commons"
+      package: "@tcons/commons"
       terraform_version: ${{ matrix.terraform_version }}
     secrets: inherit
 
@@ -75,7 +75,7 @@ jobs:
         terraform_version: ["1.6.5"]
     with:
       concurrency_group_prefix: pr-cdktf-hcl2cdk
-      package: "@cdktf/hcl2cdk"
+      package: "@tcons/hcl2cdk"
       terraform_version: ${{ matrix.terraform_version }}
     secrets: inherit
 
@@ -89,7 +89,7 @@ jobs:
         terraform_version: ["1.6.5"]
     with:
       concurrency_group_prefix: pr-cdktf-hcl2json
-      package: "@cdktf/hcl2json"
+      package: "@tcons/hcl2json"
       terraform_version: ${{ matrix.terraform_version }}
     secrets: inherit
 
@@ -103,7 +103,7 @@ jobs:
         terraform_version: ["1.6.5"]
     with:
       concurrency_group_prefix: pr-cdktf-provider-generator
-      package: "@cdktf/provider-generator"
+      package: "@tcons/provider-generator"
       terraform_version: ${{ matrix.terraform_version }}
     secrets: inherit
 
@@ -117,7 +117,7 @@ jobs:
         terraform_version: ["1.6.5"]
     with:
       concurrency_group_prefix: pr-cdktf-cli
-      package: "cdktf-cli"
+      package: "tcons-cli"
       terraform_version: ${{ matrix.terraform_version }}
     secrets: inherit
 
@@ -131,7 +131,7 @@ jobs:
         terraform_version: ["1.6.5"]
     with:
       concurrency_group_prefix: pr-cdktf
-      package: "cdktf"
+      package: "tcons"
       terraform_version: ${{ matrix.terraform_version }}
     secrets: inherit
 

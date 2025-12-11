@@ -4,14 +4,15 @@
 package main
 
 import (
+	"testing"
+
 	"cdk.tf/go/stack/generated/kreuzwerker/docker/config"
 	"cdk.tf/go/stack/generated/kreuzwerker/docker/container"
 	"cdk.tf/go/stack/generated/kreuzwerker/docker/datadockerimage"
 	"cdk.tf/go/stack/generated/kreuzwerker/docker/datadockernetwork"
-	"github.com/aws/jsii-runtime-go"
-	"github.com/hashicorp/terraform-cdk-go/cdktf"
 	docker "cdk.tf/go/stack/generated/kreuzwerker/docker/provider"
-	"testing"
+	"github.com/aws/jsii-runtime-go"
+	"github.com/terraconstructs/terraform-cdk-go/cdktf"
 )
 
 var app = cdktf.Testing_App(nil)

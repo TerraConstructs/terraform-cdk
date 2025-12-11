@@ -6,21 +6,21 @@ package main
 import (
 	"github.com/aws/constructs-go/constructs/v10"
 	"github.com/aws/jsii-runtime-go"
-	"github.com/hashicorp/terraform-cdk-go/cdktf"
-	"github.com/hashicorp/terraform-cdk/examples/go/documentation/generated/hashicorp/aws/acmcertificate"
-	"github.com/hashicorp/terraform-cdk/examples/go/documentation/generated/hashicorp/aws/acmcertificatevalidation"
-	"github.com/hashicorp/terraform-cdk/examples/go/documentation/generated/hashicorp/aws/dataawsroute53zone"
-	"github.com/hashicorp/terraform-cdk/examples/go/documentation/generated/hashicorp/aws/instance"
-	aws "github.com/hashicorp/terraform-cdk/examples/go/documentation/generated/hashicorp/aws/provider"
-	"github.com/hashicorp/terraform-cdk/examples/go/documentation/generated/hashicorp/aws/route53record"
+	"github.com/terraconstructs/terraform-cdk-go/cdktf"
+	"github.com/terraconstructs/terraform-cdk/examples/go/documentation/generated/hashicorp/aws/acmcertificate"
+	"github.com/terraconstructs/terraform-cdk/examples/go/documentation/generated/hashicorp/aws/acmcertificatevalidation"
+	"github.com/terraconstructs/terraform-cdk/examples/go/documentation/generated/hashicorp/aws/dataawsroute53zone"
+	"github.com/terraconstructs/terraform-cdk/examples/go/documentation/generated/hashicorp/aws/instance"
+	aws "github.com/terraconstructs/terraform-cdk/examples/go/documentation/generated/hashicorp/aws/provider"
+	"github.com/terraconstructs/terraform-cdk/examples/go/documentation/generated/hashicorp/aws/route53record"
 
-	"github.com/hashicorp/terraform-cdk/examples/go/documentation/generated/hashicorp/aws/s3bucket"
-	"github.com/hashicorp/terraform-cdk/examples/go/documentation/generated/hashicorp/aws/s3bucketobject"
+	"github.com/terraconstructs/terraform-cdk/examples/go/documentation/generated/hashicorp/aws/s3bucket"
+	"github.com/terraconstructs/terraform-cdk/examples/go/documentation/generated/hashicorp/aws/s3bucketobject"
 
-	"github.com/hashicorp/terraform-cdk/examples/go/documentation/generated/integrations/github/datagithuborganization"
-	github "github.com/hashicorp/terraform-cdk/examples/go/documentation/generated/integrations/github/provider"
-	"github.com/hashicorp/terraform-cdk/examples/go/documentation/generated/integrations/github/team"
-	"github.com/hashicorp/terraform-cdk/examples/go/documentation/generated/integrations/github/teammembers"
+	"github.com/terraconstructs/terraform-cdk/examples/go/documentation/generated/integrations/github/datagithuborganization"
+	github "github.com/terraconstructs/terraform-cdk/examples/go/documentation/generated/integrations/github/provider"
+	"github.com/terraconstructs/terraform-cdk/examples/go/documentation/generated/integrations/github/team"
+	"github.com/terraconstructs/terraform-cdk/examples/go/documentation/generated/integrations/github/teammembers"
 )
 
 func NewIteratorsStack(scope constructs.Construct, name string) cdktf.TerraformStack {

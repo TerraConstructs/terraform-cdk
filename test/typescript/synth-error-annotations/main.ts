@@ -7,7 +7,7 @@ import {
   TerraformOutput,
   Testing,
   Annotations,
-} from "cdktf";
+} from "tcons";
 
 export class HelloTerra extends TerraformStack {
   constructor(scope: Construct, id: string) {

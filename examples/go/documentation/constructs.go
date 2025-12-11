@@ -7,9 +7,9 @@ package main
 import (
 	"github.com/aws/constructs-go/constructs/v10"
 	"github.com/aws/jsii-runtime-go"
-	"github.com/hashicorp/terraform-cdk-go/cdktf"
-	kubernetes "github.com/hashicorp/terraform-cdk/examples/go/documentation/generated/hashicorp/kubernetes/provider"
-	"github.com/hashicorp/terraform-cdk/examples/go/documentation/myconstructs"
+	"github.com/terraconstructs/terraform-cdk-go/cdktf"
+	kubernetes "github.com/terraconstructs/terraform-cdk/examples/go/documentation/generated/hashicorp/kubernetes/provider"
+	"github.com/terraconstructs/terraform-cdk/examples/go/documentation/myconstructs"
 
 	"os"
 	"path"

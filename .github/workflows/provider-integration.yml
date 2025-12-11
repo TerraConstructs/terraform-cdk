@@ -27,14 +27,14 @@ jobs:
     outputs:
       tests: ${{ steps.build-provider-test-matrix.outputs.tests }}
     container:
-      image: docker.mirror.hashicorp.services/hashicorp/jsii-terraform
+      image: terraconstructs/jsii-terraform
     env:
       CHECKPOINT_DISABLE: "1"
     timeout-minutes: 60
 
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-      - name: "Add Git safe.directory" # Go 1.18+ started embedding repo info in the build and e.g. building @cdktf/hcl2json fails without this
+      - name: "Add Git safe.directory" # Go 1.18+ started embedding repo info in the build and e.g. building @tcons/hcl2json fails without this
         run: git config --global --add safe.directory /__w/terraform-cdk/terraform-cdk
       - name: ensure correct user
         run: chown -R root /__w/terraform-cdk
@@ -88,7 +88,7 @@ jobs:
       fail-fast: false
       matrix: ${{fromJSON(needs.prepare-provider-tests.outputs.tests)}}
     container:
-      image: docker.mirror.hashicorp.services/hashicorp/jsii-terraform
+      image: terraconstructs/jsii-terraform
     env:
       CHECKPOINT_DISABLE: "1"
       TERRAFORM_VERSION: ${{ inputs.terraform_version }}

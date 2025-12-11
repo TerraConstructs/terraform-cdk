@@ -6,19 +6,19 @@ package main
 import (
 	"github.com/aws/constructs-go/constructs/v10"
 	"github.com/aws/jsii-runtime-go"
-	"github.com/hashicorp/terraform-cdk-go/cdktf"
+	"github.com/terraconstructs/terraform-cdk-go/tcons"
 
-	"github.com/hashicorp/terraform-cdk/examples/go/azure/generated/hashicorp/azurerm/linuxvirtualmachine"
-	"github.com/hashicorp/terraform-cdk/examples/go/azure/generated/hashicorp/azurerm/networkinterface"
-	azurermprovider "github.com/hashicorp/terraform-cdk/examples/go/azure/generated/hashicorp/azurerm/provider"
-	"github.com/hashicorp/terraform-cdk/examples/go/azure/generated/hashicorp/azurerm/resourcegroup"
-	"github.com/hashicorp/terraform-cdk/examples/go/azure/generated/hashicorp/azurerm/subnet"
-	"github.com/hashicorp/terraform-cdk/examples/go/azure/generated/hashicorp/azurerm/virtualnetwork"
-	"github.com/hashicorp/terraform-cdk/examples/go/azure/generated/nullmodule"
+	"github.com/terraconstructs/terraform-cdk/examples/go/azure/generated/hashicorp/azurerm/linuxvirtualmachine"
+	"github.com/terraconstructs/terraform-cdk/examples/go/azure/generated/hashicorp/azurerm/networkinterface"
+	azurermprovider "github.com/terraconstructs/terraform-cdk/examples/go/azure/generated/hashicorp/azurerm/provider"
+	"github.com/terraconstructs/terraform-cdk/examples/go/azure/generated/hashicorp/azurerm/resourcegroup"
+	"github.com/terraconstructs/terraform-cdk/examples/go/azure/generated/hashicorp/azurerm/subnet"
+	"github.com/terraconstructs/terraform-cdk/examples/go/azure/generated/hashicorp/azurerm/virtualnetwork"
+	"github.com/terraconstructs/terraform-cdk/examples/go/azure/generated/nullmodule"
 )
 
-func NewMyStack(scope constructs.Construct, id string) cdktf.TerraformStack {
-	stack := cdktf.NewTerraformStack(scope, &id)
+func NewMyStack(scope constructs.Construct, id string) tcons.TerraformStack {
+	stack := tcons.NewTerraformStack(scope, &id)
 
 	//Initialise the provider
 	azurermprovider.NewAzurermProvider(stack, jsii.String("azurerm"), &azurermprovider.AzurermProviderConfig{
@@ -101,7 +101,7 @@ func NewMyStack(scope constructs.Construct, id string) cdktf.TerraformStack {
 	})
 
 	//Output stuff
-	cdktf.NewTerraformOutput(stack, jsii.String("names"), &cdktf.TerraformOutputConfig{
+	tcons.NewTerraformOutput(stack, jsii.String("names"), &tcons.TerraformOutputConfig{
 		Value: &[]*string{vm.Name(), rg.Name(), nm.NullResourceIdOutput()},
 	})
 
@@ -109,7 +109,7 @@ func NewMyStack(scope constructs.Construct, id string) cdktf.TerraformStack {
 }
 
 func main() {
-	app := cdktf.NewApp(nil)
+	app := tcons.NewApp(nil)
 
 	NewMyStack(app, "cdktf-azure-go")
 

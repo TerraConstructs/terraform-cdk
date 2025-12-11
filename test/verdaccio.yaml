@@ -34,7 +34,7 @@ uplinks:
 
 packages:
   # not handled by us
-  "@cdktf/node-pty-prebuilt-multiarch":
+  "@homebridge/node-pty-prebuilt-multiarch":
     proxy: npmjs
     access: $all
 

@@ -11,11 +11,11 @@
     "watch": "tsc -w",
     "test": "jest",
     "test:watch": "jest --watch",
-    "upgrade": "npm i cdktf@latest cdktf-cli@latest",
-    "upgrade:next": "npm i cdktf@next cdktf-cli@next"
+    "upgrade": "npm i tcons@latest tcons-cli@latest",
+    "upgrade:next": "npm i tcons@next tcons-cli@next"
   },
   "dependencies": {
-    "cdktf": "0.0.0",
+    "tcons": "0.0.0",
     "constructs": "10.4.2"
   },
   "devDependencies": {
