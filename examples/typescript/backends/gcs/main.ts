@@ -1,7 +1,7 @@
 // Copyright (c) HashiCorp, Inc
 // SPDX-License-Identifier: MPL-2.0
 import { Construct } from "constructs";
-import { App, TerraformStack, GcsBackend } from "cdktf";
+import { App, TerraformStack, GcsBackend } from "tcons";
 
 class MyStack extends TerraformStack {
   constructor(scope: Construct, name: string) {

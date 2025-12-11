@@ -2,9 +2,9 @@
 // SPDX-License-Identifier: MPL-2.0
 
 // DOCS_BLOCK_START:outputs,outputs-usage,remote-state
-import { TerraformLocal, TerraformStack, TerraformVariable } from "cdktf";
+import { TerraformLocal, TerraformStack, TerraformVariable } from "tcons";
 import { Construct } from "constructs";
-import { App, TerraformOutput } from "cdktf";
+import { App, TerraformOutput } from "tcons";
 // DOCS_BLOCK_END:outputs,outputs-usage,remote-state
 
 // DOCS_BLOCK_START:remote-state
@@ -12,7 +12,7 @@ import {
   CloudBackend,
   DataTerraformRemoteState,
   NamedCloudWorkspace,
-} from "cdktf";
+} from "tcons";
 // DOCS_BLOCK_END:remote-state
 
 // DOCS_BLOCK_START:outputs-usage

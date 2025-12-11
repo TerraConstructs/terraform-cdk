@@ -11,6 +11,7 @@
         "package:java": "lerna run package:java && tools/collect-dist.sh",
         "package:dotnet": "lerna run package:dotnet && tools/collect-dist.sh",
         "package:js": "lerna run package:js && tools/collect-dist.sh",
+        "package:go": "lerna run package:go && tools/collect-dist.sh",
         "package-windows": "lerna run package && tools\\collect-dist.bat",
         "pretest": "yarn lint:workspace && yarn lint:prettier",
         "test": "lerna run --scope 'tcons*' --scope @tcons/* test",

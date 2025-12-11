@@ -14,7 +14,7 @@ concurrency:
   group: release-next
 
 permissions:
-  contents: write  # Required to push git tags
+  contents: write # Required to push git tags
 
 jobs:
   prepare-release:

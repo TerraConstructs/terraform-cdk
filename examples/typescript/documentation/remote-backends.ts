@@ -8,7 +8,7 @@ import {
   TerraformOutput,
   NamedCloudWorkspace,
   App,
-} from "cdktf";
+} from "tcons";
 
 export class CloudBackendStack extends TerraformStack {
   constructor(scope: Construct, id: string) {

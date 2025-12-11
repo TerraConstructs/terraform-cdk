@@ -3,7 +3,7 @@
 
 // DOCS_BLOCK_START:single-stack,multiple-stacks,cross-stack-reference
 import { Construct } from "constructs";
-import { App, TerraformStack } from "cdktf";
+import { App, TerraformStack } from "tcons";
 import { AwsProvider } from "@cdktf/provider-aws/lib/aws-provider";
 import { Instance } from "@cdktf/provider-aws/lib/instance";
 // DOCS_BLOCK_END:single-stack,multiple-stacks,cross-stack-reference
@@ -13,7 +13,7 @@ import { Vpc } from "./constructs/vpc";
 import { DockerBackend } from "./constructs/docker-backend";
 // DOCS_BLOCK_END:cross-stack-reference
 
-import { TerraformLocal, TerraformOutput } from "cdktf";
+import { TerraformLocal, TerraformOutput } from "tcons";
 
 // Formatting space for the docs
 // DOCS_BLOCK_START:single-stack,multiple-stacks,cross-stack-reference

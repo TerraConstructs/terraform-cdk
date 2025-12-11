@@ -16,7 +16,7 @@ Steps:
 */
 
 import { Construct } from "constructs";
-import { App, TerraformStack } from "cdktf";
+import { App, TerraformStack } from "tcons";
 import { Image } from "./.gen/providers/docker/image";
 import { DockerProvider } from "./.gen/providers/docker/provider";
 import { Container } from "./.gen/providers/docker/container";

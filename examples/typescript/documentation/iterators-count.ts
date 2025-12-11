@@ -1,7 +1,7 @@
 // Copyright (c) HashiCorp, Inc
 // SPDX-License-Identifier: MPL-2.0
 
-import { TerraformCount, TerraformStack, TerraformVariable } from "cdktf";
+import { TerraformCount, TerraformStack, TerraformVariable } from "tcons";
 import { Construct } from "constructs";
 import { AwsProvider } from "@cdktf/provider-aws/lib/aws-provider";
 import { Instance } from "@cdktf/provider-aws/lib/instance";

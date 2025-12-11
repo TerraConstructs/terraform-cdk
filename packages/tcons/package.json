@@ -35,8 +35,8 @@
         },
         "targets": {
             "python": {
-                "distName": "cdktf",
-                "module": "cdktf"
+                "distName": "tcons",
+                "module": "tcons"
             },
             "java": {
                 "package": "com.hashicorp.cdktf",

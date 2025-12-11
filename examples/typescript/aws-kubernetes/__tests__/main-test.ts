@@ -1,6 +1,6 @@
 // Copyright (c) HashiCorp, Inc
 // SPDX-License-Identifier: MPL-2.0
-// import { Testing } from "cdktf";
+// import { Testing } from "tcons";
 // import "cdktf/lib/testing/adapters/jest";
 
 describe("My CDKTF Application", () => {
