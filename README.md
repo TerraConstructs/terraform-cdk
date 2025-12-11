@@ -1,5 +1,9 @@
 # The Future of Terraform CDK
 
+> [!IMPORTANT]
+>
+> [OCF](https://the-ocf.org/) - [github.com/open-constructs](https://github.com/open-constructs) has stepped up to coordinate effort towards maintaining a fork - this is proof of concept build pipelines
+
 Q: Will CDKTF continue to support new versions of Terraform or providers?
 
 A: To use new versions of Terraform and provider features, use this fork: `tcons` and `tcons-cli` packages. These packages will continue to be updated to support new versions of Terraform and providers.
@@ -7,10 +11,6 @@ A: To use new versions of Terraform and provider features, use this fork: `tcons
 Q: Is CDKTF still being developed?
 
 A: HashiCorp, an IBM Company, will no longer maintain or develop the project after December 10, 2025. This is a maintained fork of the original CDKTF project.
-
-Q: Is there a migration tool?
-
-A: This fork maintains the same interface and migration is not required at this stage.
 
 ---
 
@@ -69,7 +69,7 @@ Refer to the [CDKTF documentation](https://developer.hashicorp.com/terraform/cdk
 The development team would love your feedback to help guide the project.
 
 - Contribute using the [CONTRIBUTING.md](./CONTRIBUTING.md) guide.
-- Ask a question on the HashiCorp [Discuss](https://cdk.dev/).
+- Ask a question on the [cdk.dev](https://cdk.dev/) community.
 - Report a [bug](https://github.com/terraconstructs/terraform-cdk/issues/new?assignees=&labels=bug&template=bug-report.md&title=) or request a new [feature](https://github.com/terraconstructs/terraform-cdk/issues/new?assignees=&labels=enhancement&template=feature-request.md&title=).
 - Browse all [open issues](https://github.com/terraconstructs/terraform-cdk/issues).
 
