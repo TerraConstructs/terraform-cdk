@@ -6,17 +6,20 @@ on:
       - backport-release-*
   workflow_dispatch: {}
 
-env:
-  SENTRY_ORG: hashicorp
-  SENTRY_PROJECT: cdktf-cli
+# # Sentry integration disabled - using git tags for release tracking
+# env:
+#   SENTRY_ORG: terraconstructs
+#   SENTRY_PROJECT: tcons-cli
 
 concurrency:
   group: release
 
+permissions:
+  contents: write  # Required to push git tags
+
 jobs:
   prepare-release:
-    # TODO: Test release flow on forked repo
-    if: github.repository == 'hashicorp/terraform-cdk'
+    if: github.repository == 'TerraConstructs/terraform-cdk'
     runs-on: ubuntu-latest
     outputs:
       tests: ${{ steps.build-test-matrix.outputs.tests }}
@@ -43,31 +46,36 @@ jobs:
       - name: release status
         id: get_release_status
         run: |
-          status=$(sentry-cli releases list | grep -q 'cdktf-cli-${{ steps.get_version.outputs.version }} ' && echo 'released' || echo 'unreleased')
-          echo "Sentry returned: ${status}"
-          echo "release=${status}" >> $GITHUB_OUTPUT
-        env:
-          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_TOKEN }}
-      - name: Create a release
+          version="${{ steps.get_version.outputs.version }}"
+          if git rev-parse "v${version}" >/dev/null 2>&1; then
+            echo "Tag v${version} exists - version already released"
+            echo "release=released" >> $GITHUB_OUTPUT
+          else
+            echo "Tag v${version} does not exist - proceeding with release"
+            echo "release=unreleased" >> $GITHUB_OUTPUT
+          fi
+      - name: Create git tag
         if: steps.get_release_status.outputs.release == 'unreleased'
-        run: sentry-cli releases new cdktf-cli-${{ steps.get_version.outputs.version }}
+        run: |
+          git tag "v${{ steps.get_version.outputs.version }}"
+          git push origin "v${{ steps.get_version.outputs.version }}"
         env:
-          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: create bundle
         run: |
           yarn install --frozen-lockfile
           tools/align-version.sh
           yarn build
           yarn package
-        env:
-          SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
-      - name: Add sourcemap and commit info to sentry
-        if: steps.get_release_status.outputs.release == 'unreleased'
-        run: |
-          sentry-cli releases files cdktf-cli-${{ steps.get_version.outputs.version }} upload-sourcemaps ./packages/cdktf-cli/bundle
-          sentry-cli releases set-commits --auto cdktf-cli-${{ steps.get_version.outputs.version }}
-        env:
-          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_TOKEN }}
+        # env:
+        #   SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
+      # - name: Add sourcemap and commit info to sentry
+      #   if: steps.get_release_status.outputs.release == 'unreleased'
+      #   run: |
+      #     sentry-cli releases files tcons-cli-${{ steps.get_version.outputs.version }} upload-sourcemaps ./packages/tcons-cli/bundle
+      #     sentry-cli releases set-commits --auto tcons-cli-${{ steps.get_version.outputs.version }}
+      #   env:
+      #     SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_TOKEN }}
       - name: Upload artifact
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
@@ -170,7 +178,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   release_npm:
-    name: Release to Github Packages NPM regitry
+    name: Release to NPM Registry
     runs-on: ubuntu-latest
     needs:
       - prepare-release
@@ -307,66 +315,66 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.TERRAFORM_CDK_GO_REPO_GITHUB_TOKEN }}
           GIT_USER_NAME: "CDK for Terraform Team"
-          GIT_USER_EMAIL: "github-team-tf-cdk@hashicorp.com"
+          GIT_USER_EMAIL: "vincent@terraconstructs.dev"
 
-  release_sentry:
-    name: Finalize the sentry release
-    runs-on: ubuntu-latest
-    needs:
-      - prepare-release
-      - integration_test
-      - provider_integration_test
-      - unit_test
-    if: needs.prepare-release.outputs.release_status == 'unreleased'
-    container:
-      image: terraconstructs/jsii-terraform
-    steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-      - name: version
-        id: get_version
-        run: |
-          version=$(node -p "require('./package.json').version")
-          echo "version=${version}" >> $GITHUB_OUTPUT
-      - name: release status
-        id: get_release_status
-        run: |
-          status=$(sentry-cli releases list | grep 'cdktf-cli-${{ steps.get_version.outputs.version }} ' | grep -q 'unreleased' && echo "unreleased" || echo "released")
-          echo "Sentry returned: ${status}"
-          echo "release=${status}" >> $GITHUB_OUTPUT
-        env:
-          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_TOKEN }}
-      - name: Finalize the release
-        if: steps.get_release_status.outputs.release == 'unreleased'
-        run: sentry-cli releases finalize cdktf-cli-${{ steps.get_version.outputs.version }}
-        env:
-          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_TOKEN }}
+  # release_sentry:
+  #   name: Finalize the sentry release
+  #   runs-on: ubuntu-latest
+  #   needs:
+  #     - prepare-release
+  #     - integration_test
+  #     - provider_integration_test
+  #     - unit_test
+  #   if: needs.prepare-release.outputs.release_status == 'unreleased'
+  #   container:
+  #     image: terraconstructs/jsii-terraform
+  #   steps:
+  #     - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+  #     - name: version
+  #       id: get_version
+  #       run: |
+  #         version=$(node -p "require('./package.json').version")
+  #         echo "version=${version}" >> $GITHUB_OUTPUT
+  #     - name: release status
+  #       id: get_release_status
+  #       run: |
+  #         status=$(sentry-cli releases list | grep 'tcons-cli-${{ steps.get_version.outputs.version }} ' | grep -q 'unreleased' && echo "unreleased" || echo "released")
+  #         echo "Sentry returned: ${status}"
+  #         echo "release=${status}" >> $GITHUB_OUTPUT
+  #       env:
+  #         SENTRY_AUTH_TOKEN: {{ secrets.SENTRY_TOKEN }}
+  #     - name: Finalize the release
+  #       if: steps.get_release_status.outputs.release == 'unreleased'
+  #       run: sentry-cli releases finalize tcons-cli-${{ steps.get_version.outputs.version }}
+  #       env:
+  #         SENTRY_AUTH_TOKEN: {{ secrets.SENTRY_TOKEN }}
 
-  report:
-    name: Report status
-    runs-on: ubuntu-latest
-    if: ${{ failure() }}
-    needs:
-      - examples
-      - integration_test
-      - provider_integration_test
-      - linting
-      - prepare-release
-      - release_github
-      - release_golang
-      - release_maven
-      - release_npm
-      - release_nuget
-      - release_pypi
-      - release_sentry
-      - unit_test
-    steps:
-      - name: Send failures to Slack
-        uses: slackapi/slack-github-action@b0fa283ad8fea605de13dc3f449259339835fc52 # v2.1.0
-        with:
-          webhook: ${{ secrets.FAILURE_SLACK_WEBHOOK_URL }}
-          webhook-type: webhook-trigger
-          payload: |
-            {
-              "name": "main",
-              "run_url": "https://github.com/hashicorp/terraform-cdk/actions/runs/${{ github.run_id }}"
-            }
+  # report:
+  #   name: Report status
+  #   runs-on: ubuntu-latest
+  #   if: ${{ failure() }}
+  #   needs:
+  #     - examples
+  #     - integration_test
+  #     - provider_integration_test
+  #     - linting
+  #     - prepare-release
+  #     - release_github
+  #     - release_golang
+  #     - release_maven
+  #     - release_npm
+  #     - release_nuget
+  #     - release_pypi
+  #     # - release_sentry  # Commented out - Sentry integration disabled
+  #     - unit_test
+  #   steps:
+  #     - name: Send failures to Slack
+  #       uses: slackapi/slack-github-action@b0fa283ad8fea605de13dc3f449259339835fc52 # v2.1.0
+  #       with:
+  #         webhook: ${{ secrets.FAILURE_SLACK_WEBHOOK_URL }}
+  #         webhook-type: webhook-trigger
+  #         payload: |
+  #           {
+  #             "name": "main",
+  #             "run_url": "https://github.com/hashicorp/terraform-cdk/actions/runs/${{ github.run_id }}"
+  #           }

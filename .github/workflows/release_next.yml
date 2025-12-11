@@ -5,16 +5,20 @@ on:
       - main
   workflow_dispatch: {}
 
-env:
-  SENTRY_ORG: hashicorp
-  SENTRY_PROJECT: cdktf-cli
+# # Sentry integration disabled - using git tags for release tracking
+# env:
+#  SENTRY_ORG: terraconstructs
+#  SENTRY_PROJECT: tcons-cli
 
 concurrency:
   group: release-next
 
+permissions:
+  contents: write  # Required to push git tags
+
 jobs:
   prepare-release:
-    if: github.repository == 'hashicorp/terraform-cdk'
+    if: github.repository == 'TerraConstructs/terraform-cdk'
     runs-on: ubuntu-latest
     outputs:
       tests: ${{ steps.build-test-matrix.outputs.tests }}
@@ -37,7 +41,7 @@ jobs:
       - name: Configure git user
         run: |
           git config user.name github-team-tf-cdk
-          git config user.email github-team-tf-cdk@hashicorp.com
+          git config user.email vincent@terraconstructs.dev
       - run: |
           yarn prepare-next-release
           tools/align-version.sh
@@ -49,30 +53,30 @@ jobs:
       - name: release status
         id: get_release_status
         run: |
-          status=$(sentry-cli releases list | grep -q 'cdktf-cli-${{ steps.get_version.outputs.version }} ' && echo 'released' || echo 'unreleased')
-          echo "Sentry returned: ${status}"
-          echo "release=${status}" >> $GITHUB_OUTPUT
-        env:
-          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_TOKEN }}
-      - name: Create a release
-        if: steps.get_release_status.outputs.release == 'unreleased'
-        run: sentry-cli releases new cdktf-cli-${{ steps.get_version.outputs.version }}
-        env:
-          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_TOKEN }}
+          version="${{ steps.get_version.outputs.version }}"
+          if git rev-parse "v${version}" >/dev/null 2>&1; then
+            echo "Tag v${version} exists - version already released"
+            echo "release=released" >> $GITHUB_OUTPUT
+          else
+            echo "Tag v${version} does not exist - proceeding with release"
+            echo "release=unreleased" >> $GITHUB_OUTPUT
+          fi
+      # Note: release_next uses pre-release versions so we don't create tags here
+      # Tags are created in the main release workflow
       - name: create bundle
         run: |
           yarn install --frozen-lockfile
           yarn build
           yarn package
-        env:
-          SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
-      - name: Add sourcemap and commit info to sentry
-        if: steps.get_release_status.outputs.release == 'unreleased'
-        run: |
-          sentry-cli releases files tcons-cli-${{ steps.get_version.outputs.version }} upload-sourcemaps ./packages/tcons-cli/bundle
-          sentry-cli releases set-commits --auto tcons-cli-${{ steps.get_version.outputs.version }}
-        env:
-          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_TOKEN }}
+        # env:
+        #   SENTRY_DSN: {{ secrets.SENTRY_DSN }}
+      # - name: Add sourcemap and commit info to sentry
+      #   if: steps.get_release_status.outputs.release == 'unreleased'
+      #   run: |
+      #     sentry-cli releases files tcons-cli-${{ steps.get_version.outputs.version }} upload-sourcemaps ./packages/tcons-cli/bundle
+      #     sentry-cli releases set-commits --auto tcons-cli-${{ steps.get_version.outputs.version }}
+      #   env:
+      #     SENTRY_AUTH_TOKEN: {{ secrets.SENTRY_TOKEN }}
       - name: Upload artifact
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
@@ -164,90 +168,90 @@ jobs:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           NPM_DIST_TAG: next
 
-  release_pypi:
-    name: Release to PyPi
-    needs:
-      - prepare-release
-      - integration_test
-      - provider_integration_test
-      - unit_test
-    runs-on: ubuntu-latest
-    container:
-      image: terraconstructs/jsii-terraform
-    steps:
-      - name: Download build artifacts
-        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
-        with:
-          name: dist
-          path: dist
-      - name: ensure correct user
-        run: chown -R root /__w/terraform-cdk
-      # We use twine directly for publishing instead of publib-pypi
-      # Publib-pypi does the same twine command (https://github.com/cdklabs/publib/blob/main/bin/publib-pypi)
-      # but also tries to install twine which is already globally
-      # available in the docker image we use. It upgrades twine,
-      # introducing risks of breaking changes. (Though not likely, twine is ancient)
-      # We can not keep the install since the update to python 3.11 in the docker image
-      # forbids global installs since the global pip is system managed.
-      # Running this install in a virtualenv would be possible but would require
-      # changes for the publib-pypi script. This is the easiest solution for now.
-      - name: Release
-        run: |
-          cd dist/python
-          twine upload --verbose --skip-existing *
-        env:
-          TWINE_USERNAME: ${{ secrets.TWINE_USERNAME }}
-          TWINE_PASSWORD: ${{ secrets.TWINE_PASSWORD }}
+  # release_pypi:
+  #   name: Release to PyPi
+  #   needs:
+  #     - prepare-release
+  #     - integration_test
+  #     - provider_integration_test
+  #     - unit_test
+  #   runs-on: ubuntu-latest
+  #   container:
+  #     image: terraconstructs/jsii-terraform
+  #   steps:
+  #     - name: Download build artifacts
+  #       uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+  #       with:
+  #         name: dist
+  #         path: dist
+  #     - name: ensure correct user
+  #       run: chown -R root /__w/terraform-cdk
+  #     # We use twine directly for publishing instead of publib-pypi
+  #     # Publib-pypi does the same twine command (https://github.com/cdklabs/publib/blob/main/bin/publib-pypi)
+  #     # but also tries to install twine which is already globally
+  #     # available in the docker image we use. It upgrades twine,
+  #     # introducing risks of breaking changes. (Though not likely, twine is ancient)
+  #     # We can not keep the install since the update to python 3.11 in the docker image
+  #     # forbids global installs since the global pip is system managed.
+  #     # Running this install in a virtualenv would be possible but would require
+  #     # changes for the publib-pypi script. This is the easiest solution for now.
+  #     - name: Release
+  #       run: |
+  #         cd dist/python
+  #         twine upload --verbose --skip-existing *
+  #       env:
+  #         TWINE_USERNAME: {{ secrets.TWINE_USERNAME }}
+  #         TWINE_PASSWORD: {{ secrets.TWINE_PASSWORD }}
 
-  release_maven:
-    name: Release to Maven
-    needs:
-      - prepare-release
-      - integration_test
-      - provider_integration_test
-      - unit_test
-    runs-on: ubuntu-latest
-    container:
-      image: terraconstructs/jsii-terraform
-    steps:
-      - name: Download dist
-        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
-        with:
-          name: dist
-          path: dist
-      - name: ensure correct user
-        run: chown -R root /__w/terraform-cdk
-      - name: Release
-        run: npx -p publib publib-maven
-        env:
-          MAVEN_PASSWORD: ${{ secrets.MAVEN_PASSWORD }}
-          MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
-          MAVEN_ENDPOINT: https://hashicorp.oss.sonatype.org
-          MAVEN_GPG_PRIVATE_KEY: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
-          MAVEN_GPG_PRIVATE_KEY_PASSPHRASE: ${{ secrets.MAVEN_GPG_PRIVATE_KEY_PASSPHRASE }}
-          MAVEN_STAGING_PROFILE_ID: ${{ secrets.MAVEN_STAGING_PROFILE_ID }}
-          MAVEN_OPTS: "--add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.base/java.lang.reflect=ALL-UNNAMED --add-opens=java.base/java.text=ALL-UNNAMED --add-opens=java.desktop/java.awt.font=ALL-UNNAMED" # See https://stackoverflow.com/questions/70153962/nexus-staging-maven-plugin-maven-deploy-failed-an-api-incompatibility-was-enco
+  # release_maven:
+  #   name: Release to Maven
+  #   needs:
+  #     - prepare-release
+  #     - integration_test
+  #     - provider_integration_test
+  #     - unit_test
+  #   runs-on: ubuntu-latest
+  #   container:
+  #     image: terraconstructs/jsii-terraform
+  #   steps:
+  #     - name: Download dist
+  #       uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+  #       with:
+  #         name: dist
+  #         path: dist
+  #     - name: ensure correct user
+  #       run: chown -R root /__w/terraform-cdk
+  #     - name: Release
+  #       run: npx -p publib publib-maven
+  #       env:
+  #         MAVEN_PASSWORD: {{ secrets.MAVEN_PASSWORD }}
+  #         MAVEN_USERNAME: {{ secrets.MAVEN_USERNAME }}
+  #         MAVEN_ENDPOINT: https://hashicorp.oss.sonatype.org
+  #         MAVEN_GPG_PRIVATE_KEY: {{ secrets.MAVEN_GPG_PRIVATE_KEY }}
+  #         MAVEN_GPG_PRIVATE_KEY_PASSPHRASE: {{ secrets.MAVEN_GPG_PRIVATE_KEY_PASSPHRASE }}
+  #         MAVEN_STAGING_PROFILE_ID: {{ secrets.MAVEN_STAGING_PROFILE_ID }}
+  #         MAVEN_OPTS: "--add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.base/java.lang.reflect=ALL-UNNAMED --add-opens=java.base/java.text=ALL-UNNAMED --add-opens=java.desktop/java.awt.font=ALL-UNNAMED" # See https://stackoverflow.com/questions/70153962/nexus-staging-maven-plugin-maven-deploy-failed-an-api-incompatibility-was-enco
 
-  release_nuget:
-    name: Release to NuGet
-    needs:
-      - prepare-release
-      - integration_test
-      - provider_integration_test
-      - unit_test
-    runs-on: ubuntu-latest
-    container:
-      image: terraconstructs/jsii-terraform
-    steps:
-      - name: Download dist
-        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
-        with:
-          name: dist
-          path: dist
-      - name: Release
-        run: npx -p publib publib-nuget
-        env:
-          NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+  # release_nuget:
+  #   name: Release to NuGet
+  #   needs:
+  #     - prepare-release
+  #     - integration_test
+  #     - provider_integration_test
+  #     - unit_test
+  #   runs-on: ubuntu-latest
+  #   container:
+  #     image: terraconstructs/jsii-terraform
+  #   steps:
+  #     - name: Download dist
+  #       uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+  #       with:
+  #         name: dist
+  #         path: dist
+  #     - name: Release
+  #       run: npx -p publib publib-nuget
+  #       env:
+  #         NUGET_API_KEY: {{ secrets.NUGET_API_KEY }}
 
   release_golang:
     name: Release Go to Github Repo
@@ -272,64 +276,64 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.TERRAFORM_CDK_GO_REPO_GITHUB_TOKEN }}
           GIT_USER_NAME: "CDK for Terraform Team"
-          GIT_USER_EMAIL: "github-team-tf-cdk@hashicorp.com"
+          GIT_USER_EMAIL: "vincent@terraconstructs.dev"
 
-  release_sentry:
-    name: Finalize the sentry release
-    needs:
-      - prepare-release
-      - integration_test
-      - provider_integration_test
-      - unit_test
-      - release_npm
-    runs-on: ubuntu-latest
-    container:
-      image: terraconstructs/jsii-terraform
-    steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-      - name: version
-        id: get_version
-        run: |
-          version=$(node -p "require('./package.json').version")
-          echo "version=${version}" >> $GITHUB_OUTPUT
-      - name: release status
-        id: get_release_status
-        run: |
-          status=$(sentry-cli releases list | grep 'cdktf-cli-${{ steps.get_version.outputs.version }} ' | grep -q 'unreleased' && echo "unreleased" || echo "released")
-          echo "Sentry returned: ${status}"
-          echo "release=${status}" >> $GITHUB_OUTPUT
-        env:
-          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_TOKEN }}
-      - name: Finalize the release
-        if: steps.get_release_status.outputs.release == 'unreleased'
-        run: sentry-cli releases finalize cdktf-cli-${{ steps.get_version.outputs.version }}
-        env:
-          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_TOKEN }}
+  # release_sentry:
+  #   name: Finalize the sentry release
+  #   needs:
+  #     - prepare-release
+  #     - integration_test
+  #     - provider_integration_test
+  #     - unit_test
+  #     - release_npm
+  #   runs-on: ubuntu-latest
+  #   container:
+  #     image: terraconstructs/jsii-terraform
+  #   steps:
+  #     - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+  #     - name: version
+  #       id: get_version
+  #       run: |
+  #         version=$(node -p "require('./package.json').version")
+  #         echo "version=${version}" >> $GITHUB_OUTPUT
+  #     - name: release status
+  #       id: get_release_status
+  #       run: |
+  #         status=$(sentry-cli releases list | grep 'tcons-cli-${{ steps.get_version.outputs.version }} ' | grep -q 'unreleased' && echo "unreleased" || echo "released")
+  #         echo "Sentry returned: ${status}"
+  #         echo "release=${status}" >> $GITHUB_OUTPUT
+  #       env:
+  #         SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_TOKEN }}
+  #     - name: Finalize the release
+  #       if: steps.get_release_status.outputs.release == 'unreleased'
+  #       run: sentry-cli releases finalize tcons-cli-${{ steps.get_version.outputs.version }}
+  #       env:
+  #         SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_TOKEN }}
 
-  report:
-    name: Report status
-    runs-on: ubuntu-latest
-    if: ${{ failure() }}
-    needs:
-      - examples
-      - integration_test
-      - linting
-      - prepare-release
-      - release_golang
-      - release_maven
-      - release_npm
-      - release_nuget
-      - release_pypi
-      - release_sentry
-      - unit_test
-    steps:
-      - name: Send failures to Slack
-        uses: slackapi/slack-github-action@b0fa283ad8fea605de13dc3f449259339835fc52 # v2.1.0
-        with:
-          webhook: ${{ secrets.FAILURE_SLACK_WEBHOOK_URL }}
-          webhook-type: webhook-trigger
-          payload: |
-            {
-              "name": "next",
-              "run_url": "https://github.com/hashicorp/terraform-cdk/actions/runs/${{ github.run_id }}"
-            }
+  # report:
+  #   name: Report status
+  #   runs-on: ubuntu-latest
+  #   if: ${{ failure() }}
+  #   needs:
+  #     - examples
+  #     - integration_test
+  #     - linting
+  #     - prepare-release
+  #     - release_golang
+  #     # - release_maven
+  #     - release_npm
+  #     # - release_nuget
+  #     # - release_pypi
+  #     # - release_sentry  # Commented out - Sentry integration disabled
+  #     - unit_test
+  #   steps:
+  #     - name: Send failures to Slack
+  #       uses: slackapi/slack-github-action@b0fa283ad8fea605de13dc3f449259339835fc52 # v2.1.0
+  #       with:
+  #         webhook: ${{ secrets.FAILURE_SLACK_WEBHOOK_URL }}
+  #         webhook-type: webhook-trigger
+  #         payload: |
+  #           {
+  #             "name": "next",
+  #             "run_url": "https://github.com/hashicorp/terraform-cdk/actions/runs/${{ github.run_id }}"
+  #           }
